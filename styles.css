@@ -326,6 +326,8 @@ h1 { font-size: var(--fs-display); }
 
 /* Image plate — a drawn mark until a real screenshot replaces it.
    Drop an <img> inside .plate and it takes over; the caption stays. */
+.plates { display: grid; gap: .75rem; align-content: start; }
+
 .plate {
   position: relative;
   aspect-ratio: 4 / 3;
@@ -333,6 +335,11 @@ h1 { font-size: var(--fs-display); }
   border: 1px solid var(--rule);
   overflow: hidden;
 }
+
+/* A real screenshot sets its own height. Screenshots arrive at whatever
+   ratio the window happened to be, and cropping them all to 4:3 threw
+   away the half that shows the work. */
+.plate:has(img) { aspect-ratio: auto; background: var(--paper); }
 .plate::before {
   content: "";
   position: absolute; inset: 0;
@@ -349,7 +356,7 @@ h1 { font-size: var(--fs-display); }
   font: 400 clamp(4rem, 9vw, 7rem)/1 var(--serif);
   color: var(--rule-2);
 }
-.plate img { position: relative; z-index: 2; width: 100%; height: 100%; object-fit: cover; }
+.plate img { position: relative; z-index: 2; display: block; width: 100%; height: auto; }
 .plate:has(img)::before, .plate:has(img)::after { display: none; }
 
 .plate figcaption {

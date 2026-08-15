@@ -20,7 +20,8 @@
 <meta name="twitter:title" content="Trần Nhất Long — Backend Engineer">
 <meta name="twitter:description" content="Backend services, data models, and the infrastructure they run on.">
 
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<!-- Browsers cache favicons hard; the query bumps past the old terminal mark. -->
+<link rel="icon" href="favicon.svg?v=4" type="image/svg+xml">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -117,7 +118,7 @@
           <span class="rec-mark" aria-hidden="true"></span>
         </summary>
         <div class="rec-body">
-          <figure class="plate" data-plate="01"><figcaption>PQT — terminal</figcaption></figure>
+          <figure class="plate" data-plate="01"><figcaption>PQT — no screenshot yet</figcaption></figure>
           <div class="rec-detail">
             <p>A Bloomberg-inspired research workstation for the Vietnamese market. The point is the closed loop — if the data is wrong, nothing downstream can be trusted.</p>
             <ul class="chain" aria-label="Dependency chain">
@@ -143,7 +144,18 @@
           <span class="rec-mark" aria-hidden="true"></span>
         </summary>
         <div class="rec-body">
-          <figure class="plate" data-plate="02"><figcaption>CVerify — platform</figcaption></figure>
+          <div class="plates">
+            <figure class="plate">
+              <img src="shots/CVerify1.png" width="1712" height="821" loading="lazy" decoding="async"
+                   alt="CVerify landing page: 'Hiring based on proof, not claims' over a dark hero, with buttons to generate a verified profile or view the verification demo.">
+              <figcaption>CVerify — landing</figcaption>
+            </figure>
+            <figure class="plate">
+              <img src="shots/CVerify2.png" width="1568" height="649" loading="lazy" decoding="async"
+                   alt="CVerify sign-in section: 'Verify Developers. No Backdoor Claims.' beside an Engineer/Business tabbed card offering Google or email sign-in.">
+              <figcaption>CVerify — sign-in</figcaption>
+            </figure>
+          </div>
           <div class="rec-detail">
             <p>Checks what a CV claims against the candidate's actual code. Static analysis for complexity, MinHash LSH for clone detection, Claude for evaluation.</p>
             <p class="aside"><b>82 of 413 commits are mine.</b> A five-person capstone — this is the part I owned.</p>
@@ -153,7 +165,7 @@
               <div><dt>Fixes</dt><dd>Made container logs reach Cloud Logging; fixed OAuth linking; cut one page from 22 requests</dd></div>
             </dl>
             <p class="stack"><span>Python</span><span>FastAPI</span><span>Claude API</span><span>C#</span><span>GCP</span><span>nginx</span><span>Docker</span></p>
-            <a class="go" href="https://cverify.com.vn" target="_blank" rel="noopener noreferrer">Live site<span aria-hidden="true">↗</span></a>
+            <a class="go" href="https://cverify.io.vn" target="_blank" rel="noopener noreferrer">Live site<span aria-hidden="true">↗</span></a>
             <a class="go" href="https://github.com/fptu-se-su26/swp391-su26-ai-audit-project-swp391_se20a02_group-05" target="_blank" rel="noopener noreferrer">Team repository<span aria-hidden="true">↗</span></a>
           </div>
         </div>
@@ -190,7 +202,11 @@
           <span class="rec-mark" aria-hidden="true"></span>
         </summary>
         <div class="rec-body">
-          <figure class="plate" data-plate="04"><figcaption>FU-Autokit — popup</figcaption></figure>
+          <figure class="plate">
+            <img src="shots/FU-Autokit.png" width="846" height="583" loading="lazy" decoding="async"
+                 alt="FU-Autokit popup over a browser tab: shortcut buttons for FAP, EduNext, Coursera, Thư viện, CMS, FLM, DNG, OCD and OJT, a K18/K19 account-type toggle, and fields for campus, student ID and email.">
+            <figcaption>FU-Autokit — popup</figcaption>
+          </figure>
           <div class="rec-detail">
             <p>Removes the daily friction of university systems: one credential store, nine portals, and the arithmetic students were doing by hand.</p>
             <dl class="spec">

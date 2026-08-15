@@ -3,12 +3,20 @@
 Drop screenshots here using these exact filenames. Each one replaces the drawn
 placeholder plate in its project record on the site.
 
-| File | Project | What to capture |
-|------|---------|-----------------|
-| `pqt.png` | PQT | The terminal UI — service status / instrument view |
-| `cverify.png` | CVerify | A real screen from cverify.com.vn (dashboard or a report) |
-| `dwatch.png` | DWatch | Storefront or the checkout / admin console |
-| `fu-autokit.png` | FU-Autokit | The extension popup over a portal page |
+| File | Project | Status |
+|------|---------|--------|
+| `CVerify1.png` | CVerify | **Live** — landing hero |
+| `CVerify2.png` | CVerify | **Live** — sign-in section |
+| `FU-Autokit.png` | FU-Autokit | **Live** — extension popup |
+| `DWatch.png` | DWatch | **Wanted** — storefront, checkout or admin console |
+| `PQT.jpg` | PQT | **Unused** — see below |
+
+`PQT.jpg` is a "COMING SOON" clipart, not a screenshot. It is left in the folder
+but not referenced: bright purple cartoon lettering sits badly against a warm
+paper page whose whole argument is that the work is serious. The record shows
+the drawn plate instead, captioned "no screenshot yet", which says the same
+thing without undercutting the page. Swap it in if you disagree — the markup is
+one `<img>` tag.
 
 ## Specs
 
