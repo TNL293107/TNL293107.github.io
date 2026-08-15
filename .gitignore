@@ -1,8 +1,12 @@
 # Internal build brief — kept local, not part of the published site.
-# Remove this line if you want it public.
 AGENT_PROMPT.md
 
-# OS / editor noise
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
 .DS_Store
 Thumbs.db
 desktop.ini

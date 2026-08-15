@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Design tokens. Dark, cinematic ground with a single hot accent
+   — the genre the reference sits in, in this site's own colours.
+   ============================================================ */
+@theme {
+  --color-void: #08070a;
+  --color-ink: #0e0d11;
+  --color-surface: #141318;
+  --color-line: #232128;
+  --color-bone: #f1ede6;
+  --color-mute: #8b8592;
+  --color-flare: #ff4d2e;
+  --color-cobalt: #2440e0;
+
+  --font-display: var(--font-display), Georgia, serif;
+  --font-body: var(--font-body), system-ui, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    background: var(--color-void);
+    color: var(--color-bone);
+    -webkit-font-smoothing: antialiased;
+  }
+  body { margin: 0; overflow-x: clip; }
+
+  /* Lenis drives scrolling; the native smooth behaviour would fight it. */
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  .lenis.lenis-stopped { overflow: hidden; }
+
+  ::selection { background: var(--color-flare); color: var(--color-void); }
+
+  :focus-visible {
+    outline: 2px solid var(--color-flare);
+    outline-offset: 3px;
+  }
+}
+
+@layer utilities {
+  .grain::after {
+    content: "";
+    position: fixed;
+    inset: -50%;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+  }
+}
+
+/* Everything decorative collapses for reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .grain::after { display: none; }
+}
