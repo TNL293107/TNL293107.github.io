@@ -281,20 +281,24 @@
       canvas.height = Math.round(H * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      /* Fewer, larger marks when there is less room. */
+      /* Fewer, bigger marks when there is less room — on a phone a full set
+         at a legible size just becomes a jam. */
       const narrow = W < 620;
       const set = narrow ? marks.filter((_, i) => i % 2 === 0) : marks;
-      const size = narrow ? 46 : Math.min(64, Math.max(50, W / 18));
+      const size = narrow
+        ? clamp(W / 4.6, 62, 84)
+        : clamp(W / 11, 78, 116);
 
       chips = set.map((m) => ({
         mark: m,
+        drawC: drawColour(m.c),
         s: size,
         r: size / 2,
         x: size + Math.random() * Math.max(1, W - size * 2),
         y: size + Math.random() * Math.max(1, H - size * 2),
         vx: (Math.random() - 0.5) * 0.4,
         vy: (Math.random() - 0.5) * 0.4,
-        tint: 0
+        lift: 0
       }));
 
       draw();
@@ -326,10 +330,11 @@
           if (c.y + c.r > H) { c.y = H - c.r; c.vy = -Math.abs(c.vy) * 0.72; }
         }
 
-        /* brand colour fades in near the pointer, or while dragged */
-        const near = Math.hypot(c.x - pointer.x, c.y - pointer.y) < c.r + 26;
+        /* Marks carry their brand colour permanently; proximity only lifts
+           the disc (ring + shadow) so hovering still reads as a response. */
+        const near = Math.hypot(c.x - pointer.x, c.y - pointer.y) < c.r + 30;
         const want = (c === held || near) ? 1 : 0;
-        c.tint += (want - c.tint) * 0.12;
+        c.lift += (want - c.lift) * 0.14;
       }
 
       /* circular separation */
@@ -349,37 +354,54 @@
       }
     }
 
-    /* blend a hex toward the ink colour */
-    const mix = (hex, t) => {
+    const rgb = (hex) => {
       const h = hex.replace('#', '');
-      const r = parseInt(h.slice(0, 2), 16), g = parseInt(h.slice(2, 4), 16), b = parseInt(h.slice(4, 6), 16);
-      const ir = 20, ig = 17, ib = 14;
-      return `rgb(${Math.round(ir + (r - ir) * t)}, ${Math.round(ig + (g - ig) * t)}, ${Math.round(ib + (b - ib) * t)})`;
+      return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
+    };
+
+    /* A few marks are near-white or near-black by brand. Nudge those toward
+       the ink so every one of them stays visible on warm paper. */
+    const drawColour = (hex) => {
+      const [r, g, b] = rgb(hex);
+      const l = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+      if (l > 0.82) return '#8a8378';        // too pale for this ground
+      if (l < 0.06) return INK;              // pure black reads as the ink
+      return hex;
     };
 
     function draw() {
       ctx.clearRect(0, 0, W, H);
 
       for (const c of chips) {
-        const pad = c.s * 0.26;
+        const pad = c.s * 0.24;
         const inner = c.s - pad * 2;
+        const lift = c.lift;
 
         ctx.save();
         ctx.translate(c.x - c.r, c.y - c.r);
 
-        // disc
+        // disc — sits on paper so the marks read as objects, not stickers
+        if (lift > 0.02) {
+          ctx.shadowColor = `rgba(20, 17, 14, ${0.16 * lift})`;
+          ctx.shadowBlur = 22 * lift;
+          ctx.shadowOffsetY = 6 * lift;
+        }
         ctx.beginPath();
         ctx.arc(c.r, c.r, c.r, 0, Math.PI * 2);
         ctx.fillStyle = PAPER;
         ctx.fill();
-        ctx.strokeStyle = c.tint > 0.5 ? mix(c.mark.c, c.tint) : RULE;
+        ctx.shadowColor = 'transparent';
+        ctx.shadowBlur = 0;
+        ctx.shadowOffsetY = 0;
+
+        ctx.strokeStyle = lift > 0.35 ? c.mark.c : RULE;
         ctx.lineWidth = 1;
         ctx.stroke();
 
-        // mark
+        // mark, in its own brand colour
         ctx.translate(pad, pad);
         ctx.scale(inner / GRID, inner / GRID);
-        ctx.fillStyle = c.tint > 0.02 ? mix(c.mark.c, c.tint) : INK;
+        ctx.fillStyle = c.drawC;
         ctx.fill(c.mark.path);
 
         ctx.restore();

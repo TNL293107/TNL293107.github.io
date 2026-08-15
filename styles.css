@@ -15,9 +15,11 @@
   --rule-2:  #d2c5b2;
   --accent:  #2440e0;   /* cobalt — 7.4:1 on --paper */
 
-  --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+  /* Every family here carries Vietnamese. Do not swap one in without
+     checking for a `vietnamese` subset — diacritics detach without it. */
+  --serif: Newsreader, Georgia, "Times New Roman", serif;
   --sans:  Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-  --mono:  "DM Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --mono:  "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   --fs-display: clamp(3.5rem, 1.2rem + 9.4vw, 9rem);
   --fs-h2:      clamp(2.6rem, 1.4rem + 4.8vw, 5.5rem);
@@ -554,9 +556,12 @@ h1 { font-size: var(--fs-display); }
 .cloud {
   display: none;              /* no JS / reduced motion: never shows an empty box */
   position: relative;
-  height: clamp(300px, 44vw, 460px);
-  border: 1px solid var(--rule);
-  background: var(--paper);   /* same ground as the page — no tinted panel */
+  /* Taller than it looks like it needs to be: the marks are large now and
+     need room to drift without permanently jamming against each other. */
+  height: clamp(340px, 52vw, 540px);
+  /* No border and no panel fill — a framed box cut the page in half. The
+     marks are meant to float on the same ground as everything else. */
+  background: transparent;
   overflow: hidden;
   touch-action: pan-y;        /* the page must still scroll over the canvas */
 }

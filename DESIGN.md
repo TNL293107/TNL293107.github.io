@@ -78,9 +78,27 @@ because that notation uses 0–1 floats rather than 0–255.
 
 ## Typography
 
-- **Instrument Serif** — display. `clamp(3.5rem → 9rem)`, tracking `-0.02em`.
+- **Newsreader** — display. `clamp(3.5rem → 9rem)`, tracking `-0.02em`.
 - **Inter** — body and UI.
-- **DM Mono** — every label, index, state and caption.
+- **JetBrains Mono** — every label, index, state and caption.
+
+### Vietnamese is a hard constraint on font choice
+
+The first build used Instrument Serif and DM Mono. **Neither ships a
+`vietnamese` subset on Google Fonts**, so `ầ` and `ấ` fell back to a system
+font and rendered with the diacritics visibly detached from the letter —
+"Trâ `n Nhâ ´t Long" in the site header, and the same in the hero label and
+footer.
+
+Any replacement family must be checked before it is used:
+
+```bash
+curl -s "https://fonts.googleapis.com/css2?family=<Family>&display=swap"   | grep -c "/\* vietnamese \*/"
+```
+
+Newsreader, Inter and JetBrains Mono all carry it. Verified after the swap by
+measuring each composed glyph against its base letter — a precomposed `ầ` has
+the same advance width as `a` (ratio 1.000); a decomposed fallback is wider.
 
 Mono metadata against a serif display is what keeps an editorial page legibly an
 *engineer's* page.
@@ -111,9 +129,15 @@ from three canvases. This is the same idea, built in ~150 lines of vanilla:
 - Circular bodies, velocity damping, pointer repulsion, pairwise separation.
 - Marks are Simple Icons paths (CC0) drawn via `Path2D`, embedded in `icons.js`
   so there is **no network request and no runtime dependency**.
-- Ink monochrome at rest; a mark fades to its brand colour as the pointer nears
-  it or while it is dragged. Full brand colour on all twenty at once would be a
-  badge wall — exactly what this page is trying not to be.
+- Marks carry their **brand colour permanently**. Two brand colours are unusable
+  on warm paper as-is, so a luminance check nudges near-white marks toward grey
+  and pure-black ones to the ink. Proximity now lifts the disc — a ring plus a
+  shadow — rather than changing colour.
+- **No frame and no panel fill.** An earlier version drew the canvas on a tinted
+  `--paper-2` panel with a visible border; it read as a boxed widget dropped into
+  the page and broke the continuity of the ground.
+- Marks are large — `W/11` capped at 116px on desktop, `W/4.6` on narrow screens
+  with half the set — because at 46px the logos were not identifiable on a phone.
 - The simulation only runs while the section is on screen.
 - `touch-action: pan-y`, and dragging is mouse-only, so it never eats a scroll.
 - **One frame is drawn synchronously on build.** rAF is throttled in background
