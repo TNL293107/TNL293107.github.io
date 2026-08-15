@@ -25,7 +25,7 @@ Both are fixed structurally rather than cosmetically.
 | Visible text at rest | ~7,000 chars | **~1,600 chars** |
 | Page length | 7.8 screens | 4.6 screens |
 | Ground | near-black `#080808` | warm paper `#fdf8f3` |
-| Display face | Inter, tight sans | Instrument Serif |
+| Display face | Inter, tight sans | Newsreader |
 | Work section | four always-open essays | four collapsed records |
 | Stack | six cards of prose | canvas of technology marks |
 
