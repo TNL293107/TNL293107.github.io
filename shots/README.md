@@ -8,15 +8,17 @@ placeholder plate in its project record on the site.
 | `CVerify1.png` | CVerify | **Live** — landing hero |
 | `CVerify2.png` | CVerify | **Live** — sign-in section |
 | `FU-Autokit.png` | FU-Autokit | **Live** — extension popup |
-| `DWatch.png` | DWatch | **Live** — storefront hero |
+| `DWatch.png` | DWatch | **Live** — full storefront, 1912px wide |
+| `underdevelopment.png` | PQT | **Live** — status mark, not a capture |
 | `PQT.jpg` | PQT | **Unused** — see below |
 
-`PQT.jpg` is a "COMING SOON" clipart, not a screenshot. It is left in the folder
-but not referenced: bright purple cartoon lettering sits badly against a warm
-paper page whose whole argument is that the work is serious. The record shows
-the drawn plate instead, captioned "no screenshot yet", which says the same
-thing without undercutting the page. Swap it in if you disagree — the markup is
-one `<img>` tag.
+PQT has no screenshot while it is still being built, so its record shows
+`underdevelopment.png` as a **status mark**: a square icon held at its own size
+and centred on the plate, rather than stretched across a landscape frame the way
+a real capture is. The `.plate.is-mark` class does this. Replace it with a real
+capture and drop the class when there is something to show.
+
+`PQT.jpg` (the "COMING SOON" clipart) is left in the folder but unreferenced.
 
 ## Specs
 
@@ -27,9 +29,9 @@ one `<img>` tag.
 - **Keep each file under ~300 KB.** They are lazy-loaded and only fetched when
   a record is expanded, but the rest of the site is only ~70 KB.
 - **Capture at roughly 1200px wide or more.** A plate renders about 458 CSS px
-  across, which a high-DPI screen draws at ~916 device px. `DWatch.png` is only
-  605px wide, so it is the one shot that will look soft on a retina display —
-  worth re-taking from a wider browser window.
+  across, which a high-DPI screen draws at ~916 device px. Current headroom:
+  DWatch 4.2x, CVerify 3.7x and 3.4x, FU-Autokit 1.9x — only FU-Autokit is
+  marginally under 2x, so it is the one worth re-taking one day.
 - **Crop out anything private** — real names, emails, student IDs, tokens,
   browser tabs with unrelated sites. These go on a public page.
 

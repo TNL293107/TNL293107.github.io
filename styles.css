@@ -266,6 +266,9 @@ h1 { font-size: var(--fs-display); }
   grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
   gap: clamp(1.5rem, 4vw, 3.5rem);
   padding-bottom: clamp(2rem, 4vw, 3rem);
+  /* Grid items stretch by default, which left a wide screenshot sitting in
+     a box far taller than itself. Each column keeps its own height. */
+  align-items: start;
 }
 
 .rec-detail > * + * { margin-top: 1.25rem; }
@@ -340,6 +343,21 @@ h1 { font-size: var(--fs-display); }
    ratio the window happened to be, and cropping them all to 4:3 threw
    away the half that shows the work. */
 .plate:has(img) { aspect-ratio: auto; background: var(--paper); }
+
+/* A status mark is an icon, not a capture. Full-bleeding a square icon
+   across a landscape plate looks like a stretched placeholder, so it is
+   held at its own size, centred on the plate ground. */
+.plate.is-mark {
+  aspect-ratio: 4 / 3;
+  background: var(--paper-2);
+  display: grid;
+  place-items: center;
+}
+.plate.is-mark img {
+  width: clamp(84px, 34%, 150px);
+  height: auto;
+  opacity: .85;
+}
 .plate::before {
   content: "";
   position: absolute; inset: 0;
