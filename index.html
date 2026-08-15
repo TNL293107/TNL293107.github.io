@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trần Nhất Long — Backend Engineer</title>
+
+<meta name="description" content="Trần Nhất Long (TNL293107) — Software Engineering student at FPT University Đà Nẵng. Backend engineer working on C#/.NET, Java, Python and production infrastructure. Building PQT, a quantitative research terminal for Vietnamese markets.">
+<meta name="author" content="Trần Nhất Long">
+<meta name="theme-color" content="#080808">
+<link rel="canonical" href="https://TNL293107.github.io/">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://TNL293107.github.io/">
+<meta property="og:site_name" content="Trần Nhất Long">
+<meta property="og:title" content="Trần Nhất Long — Backend Engineer">
+<meta property="og:description" content="Backend engineer. C#/.NET, Java, Python. Systems where the hard part is the data model and the flow, not the screen.">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Trần Nhất Long — Backend Engineer">
+<meta name="twitter:description" content="Backend engineer. C#/.NET, Java, Python. Systems where the hard part is the data model and the flow, not the screen.">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+
+<script>
+(function () {
+  var d = document.documentElement;
+  d.classList.add('js');
+  // The intro counter runs once per session, and never for reduced-motion users.
+  try {
+    if (!sessionStorage.getItem('tnl-intro') &&
+        !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      d.classList.add('loading');
+    }
+  } catch (e) { /* private mode — just skip the intro */ }
+})();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Trần Nhất Long",
+  "alternateName": "TNL293107",
+  "url": "https://TNL293107.github.io/",
+  "email": "mailto:long293107@gmail.com",
+  "jobTitle": "Backend Engineer",
+  "address": { "@type": "PostalAddress", "addressLocality": "Đà Nẵng", "addressCountry": "VN" },
+  "alumniOf": { "@type": "CollegeOrUniversity", "name": "FPT University Đà Nẵng" },
+  "knowsAbout": ["Backend engineering", "C#", ".NET", "Java", "Python", "PostgreSQL", "Docker", "LLM integration"],
+  "sameAs": ["https://github.com/TNL293107"]
+}
+</script>
+</head>
+
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader-row">
+    <span>tnl293107</span>
+    <span>đà nẵng, vn</span>
+  </div>
+  <p class="loader-count"><i id="loader-num">0</i>%</p>
+  <div class="loader-row">
+    <span>backend engineer</span>
+    <span id="loader-status">booting</span>
+  </div>
+  <div class="loader-bar"><i id="loader-bar"></i></div>
+</div>
+
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor-glow" aria-hidden="true"></div>
+<div class="scroll-progress" aria-hidden="true"><i></i></div>
+
+<header class="site-head">
+  <a class="brand" href="#top"><span>TNL</span>293107</a>
+
+  <nav class="site-nav" id="site-nav" aria-label="Sections">
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a href="#stack">Stack</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <a class="head-cta" href="https://github.com/TNL293107" target="_blank" rel="noopener noreferrer">
+    <i aria-hidden="true"></i> GitHub
+  </a>
+
+  <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+    <span aria-hidden="true"></span><span aria-hidden="true"></span>
+  </button>
+</header>
+
+<main id="main">
+  <span id="top"></span>
+
+  <!-- ─────────────────────────── HERO ─────────────────────────── -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <p class="eyebrow stagger">Backend Engineer · Đà Nẵng, Việt Nam</p>
+
+      <h1 id="hero-title">
+        <span class="line"><span>I build systems</span></span>
+        <span class="line"><span><em>that hold up.</em></span></span>
+      </h1>
+
+      <p class="lede stagger">
+        Software Engineering student at FPT University Đà Nẵng, working mainly on
+        backend services, data models and the infrastructure they run on —
+        C#/.NET, Java and Python.
+      </p>
+
+      <div class="hero-actions stagger">
+        <a class="btn btn-primary" href="#work">Selected work <span aria-hidden="true">↘</span></a>
+        <a class="btn btn-ghost" href="mailto:long293107@gmail.com">Email me</a>
+        <a class="btn btn-ghost" href="https://github.com/TNL293107" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+
+    <div class="terminal stagger" role="img"
+         aria-label="Terminal panel. whoami: Trần Nhất Long, Software Engineering student at FPT University Đà Nẵng. Focus: backend, C-sharp and .NET, Java, Python. Building: PQT, a quant terminal, phase 1 of 20. Shipped: CVerify, running in production on Google Cloud. Status: open to backend internships.">
+      <div class="terminal-bar" aria-hidden="true">
+        <i></i><i></i><i></i>
+        <b>long@dev — ~/work</b>
+      </div>
+      <div class="terminal-body" aria-hidden="true">
+        <p class="t-line"><span class="t-cmd">whoami</span></p>
+        <p class="t-line t-out">Trần Nhất Long — SE student, FPT University Đà Nẵng</p>
+
+        <p class="t-line"><span class="t-cmd">focus</span></p>
+        <p class="t-line t-out">backend · C#/.NET · Java · Python</p>
+
+        <p class="t-line"><span class="t-cmd">building</span></p>
+        <p class="t-line t-out">PQT — quant research terminal <span class="t-dim">(phase 1 / 20)</span></p>
+
+        <p class="t-line"><span class="t-cmd">shipped</span></p>
+        <p class="t-line t-out">CVerify — production on Google Cloud</p>
+
+        <p class="t-line"><span class="t-cmd">status</span></p>
+        <p class="t-line t-ok"><b>●</b> open to backend internships</p>
+      </div>
+    </div>
+
+    <p class="scroll-hint stagger" aria-hidden="true"><span>Scroll</span><i></i></p>
+  </section>
+
+  <!-- ───────────────────────── MARQUEE ───────────────────────── -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="marquee-item">Backend engineering <b>✦</b> Data modelling <b>✦</b> Production infrastructure <b>✦</b> LLM integration <b>✦</b> Testing <b>✦</b> Observability <b>✦</b> </span>
+      <span class="marquee-item">Backend engineering <b>✦</b> Data modelling <b>✦</b> Production infrastructure <b>✦</b> LLM integration <b>✦</b> Testing <b>✦</b> Observability <b>✦</b> </span>
+    </div>
+  </div>
+
+  <!-- ──────────────────────── SELECTED WORK ──────────────────── -->
+  <section id="work" class="section" aria-labelledby="work-title">
+    <div class="section-head reveal">
+      <div>
+        <p class="eyebrow">01 — Selected work</p>
+        <h2 id="work-title">Things I&nbsp;built.</h2>
+      </div>
+      <p class="section-note">
+        Four projects, ordered by how much engineering is actually in them —
+        not by how they look.
+      </p>
+    </div>
+
+    <!-- 01 PQT -->
+    <article class="project project-lead reveal tilt">
+      <header class="project-head">
+        <span class="project-no" aria-hidden="true">01</span>
+        <span class="project-tag">Personal · in development</span>
+      </header>
+
+      <div class="project-main">
+        <div class="project-lede">
+          <h3>PQT</h3>
+          <p class="project-kicker">Quantitative research &amp; trading terminal — Vietnamese markets</p>
+          <p class="project-desc">
+            A Bloomberg-inspired research workstation for HOSE, HNX and UPCOM, built as a
+            long-term engineering project rather than a chart viewer. The point is the
+            closed loop: if the data is not correct, nothing downstream can be trusted.
+          </p>
+
+          <ul class="chain" aria-label="System dependency chain">
+            <li>data</li><li>research</li><li>backtest</li><li>risk</li><li>execution</li>
+          </ul>
+        </div>
+
+        <dl class="project-facts">
+          <div><dt>Architecture</dt><dd>Modular monolith — ASP.NET Core 10 backend, React 19 terminal UI, independent Python and C++20 toolchains</dd></div>
+          <div><dt>Data</dt><dd>PostgreSQL 17 + Redis 8. Canonical instrument identity with listing-lifecycle governance; provider symbols treated as aliases, never as keys</dd></div>
+          <div><dt>Correctness</dt><dd>Point-in-time data model — raw data preserved, corporate actions applied as versioned adjustments</dd></div>
+          <div><dt>Tests</dt><dd>163 passing across four suites (xUnit + Testcontainers, Vitest, pytest, CTest). Tests skip loudly when Docker is absent instead of passing silently</dd></div>
+        </dl>
+      </div>
+
+      <footer class="project-foot">
+        <ul class="tags"><li>C# 14</li><li>ASP.NET Core 10</li><li>EF Core 10</li><li>PostgreSQL 17</li><li>Redis 8</li><li>React 19</li><li>Python</li><li>C++20</li><li>Docker Compose</li><li>GitHub Actions</li></ul>
+        <a class="project-link" href="https://github.com/TNL293107/PQT" target="_blank" rel="noopener noreferrer">
+          Repository <span aria-hidden="true">↗</span><span class="sr-only">— PQT on GitHub</span>
+        </a>
+      </footer>
+    </article>
+
+    <!-- 02 CVerify -->
+    <article class="project project-lead reveal tilt">
+      <header class="project-head">
+        <span class="project-no" aria-hidden="true">02</span>
+        <span class="project-tag">Team capstone · in production</span>
+      </header>
+
+      <div class="project-main">
+        <div class="project-lede">
+          <h3>CVerify</h3>
+          <p class="project-kicker">AI-powered developer verification platform</p>
+          <p class="project-desc">
+            Verifies what a developer's CV claims against their actual code — static analysis
+            for complexity, MinHash&nbsp;LSH for clone detection, and Claude for evaluation.
+            A five-person capstone at FPT University, running in production on Google Cloud.
+          </p>
+
+          <p class="split-note">
+            <b>82 commits are mine</b> of 413 on main. The platform is team work;
+            below is the part I owned.
+          </p>
+        </div>
+
+        <dl class="project-facts">
+          <div><dt>AI service</dt><dd>Built pipelines in the FastAPI microservice — candidate evaluation and JD matching end to end, plus document extraction (PDF/DOCX/image → markdown) and 45 unit tests</dd></div>
+          <div><dt>Infrastructure</dt><dd>Migrated the deployment runbook from AWS EC2 to GCP Compute Engine, split routing across the app and API subdomains, and got the auto-deploy pipeline actually firing — with daily backups behind it</dd></div>
+          <div><dt>Observability</dt><dd>Cloud Monitoring alerting on uptime, SSL expiry, CPU, memory and disk — and fixed the Ops Agent config so nginx and container logs actually reached Cloud Logging instead of only syslog</dd></div>
+          <div><dt>Debugging</dt><dd>Fixed OAuth account linking by scoping the state cookie to the shared domain, and cut a settings page from 22 requests to under the nginx rate limit by collapsing duplicate in-flight GETs</dd></div>
+        </dl>
+      </div>
+
+      <footer class="project-foot">
+        <ul class="tags"><li>Python</li><li>FastAPI</li><li>Claude API</li><li>C# / .NET</li><li>TypeScript</li><li>Redis</li><li>Docker</li><li>GCP</li><li>nginx</li><li>GitHub Actions</li></ul>
+        <div class="link-row">
+          <a class="project-link" href="https://cverify.com.vn" target="_blank" rel="noopener noreferrer">
+            Live site <span aria-hidden="true">↗</span><span class="sr-only">— CVerify production site</span>
+          </a>
+          <a class="project-link" href="https://github.com/fptu-se-su26/swp391-su26-ai-audit-project-swp391_se20a02_group-05" target="_blank" rel="noopener noreferrer">
+            Team repository <span aria-hidden="true">↗</span><span class="sr-only">— CVerify team repository on GitHub</span>
+          </a>
+        </div>
+      </footer>
+    </article>
+
+    <!-- 03 + 04 -->
+    <div class="project-grid">
+      <article class="project reveal tilt">
+        <header class="project-head">
+          <span class="project-no" aria-hidden="true">03</span>
+          <span class="project-tag">Independent</span>
+        </header>
+
+        <h3>DWatch</h3>
+        <p class="project-kicker">Full-stack Java commerce platform</p>
+        <p class="project-desc">
+          A watch store on plain Servlet/JSP — no framework to hide behind. Cart, COD and
+          VietQR checkout, guest order lookup, wishlist, comparison and an admin console.
+        </p>
+
+        <ul class="bullets">
+          <li>Migrated stored passwords to BCrypt on first successful login — no user lockouts, no reset email blast</li>
+          <li>CSRF synchroniser tokens across 17 forms; session ID rotation after auth; identical responses for unknown and wrong-password logins</li>
+          <li>54 JUnit 5 + Mockito tests running fully on mocked DAOs — no database required</li>
+        </ul>
+
+        <footer class="project-foot">
+          <ul class="tags"><li>Java 17</li><li>Servlet/JSP</li><li>Maven</li><li>SQL Server</li><li>JUnit 5</li><li>Mockito</li></ul>
+          <a class="project-link" href="https://github.com/TNL293107/DWatch" target="_blank" rel="noopener noreferrer">
+            Repository <span aria-hidden="true">↗</span><span class="sr-only">— DWatch on GitHub</span>
+          </a>
+        </footer>
+      </article>
+
+      <article class="project reveal tilt">
+        <header class="project-head">
+          <span class="project-no" aria-hidden="true">04</span>
+          <span class="project-tag">Independent · v3.4</span>
+        </header>
+
+        <h3>FU-Autokit</h3>
+        <p class="project-kicker">Browser extension for FPT University students</p>
+        <p class="project-desc">
+          Removes the daily friction of university systems: one credential store, nine
+          portals, and the arithmetic students were doing by hand.
+        </p>
+
+        <ul class="bullets">
+          <li>Auto-login across 9 portals (FAP, CMS, EduNext, FLM, Library, DNG, OCD, OJTMS, Coursera), handling both legacy email and FE-ID accounts</li>
+          <li>GPA and final-exam score calculators, Vietnamese/English i18n, themeable UI, per-feature toggles</li>
+          <li>Credentials stay in <code>chrome.storage</code> — no backend, nothing leaves the browser. 33 tests on Node with jsdom</li>
+        </ul>
+
+        <footer class="project-foot">
+          <ul class="tags"><li>JavaScript</li><li>Manifest V3</li><li>Service worker</li><li>i18n</li><li>Node test runner</li></ul>
+          <a class="project-link" href="https://github.com/TNL293107/FU-Autokit" target="_blank" rel="noopener noreferrer">
+            Repository <span aria-hidden="true">↗</span><span class="sr-only">— FU-Autokit on GitHub</span>
+          </a>
+        </footer>
+      </article>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────── ABOUT ────────────────────────── -->
+  <section id="about" class="section section-bordered" aria-labelledby="about-title">
+    <div class="section-head reveal">
+      <div>
+        <p class="eyebrow">02 — About</p>
+        <h2 id="about-title">Engineering over decoration.</h2>
+      </div>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-copy reveal">
+        <p class="statement">
+          I like problems where <em>the hard part is the data model and the flow,</em>
+          not the screen.
+        </p>
+        <p>
+          Most of what I build started as something that annoyed me: nine university
+          portals that each wanted the same login, a checkout that could not tell a paid
+          order from an unpaid one, a CV with no way to check whether any of it was true.
+        </p>
+        <p>
+          The work I enjoy most is the unglamorous half — figuring out why logs never
+          reached the logging backend, why an OAuth callback silently dropped a cookie,
+          why one page fired twenty-two requests to render a single screen. That is
+          usually where a system is actually broken.
+        </p>
+        <p>
+          I am going deeper into distributed systems, testing and infrastructure, and I am
+          open to backend or full-stack internships.
+        </p>
+      </div>
+
+      <dl class="facts reveal">
+        <div><dt>Base</dt><dd>Đà Nẵng, Việt Nam</dd></div>
+        <div><dt>Studying</dt><dd>Software Engineering<br>FPT University Đà Nẵng</dd></div>
+        <div><dt>Primary</dt><dd>Backend — C#/.NET, Java, Python</dd></div>
+        <div><dt>Tests written</dt><dd>250+ across PQT, DWatch, CVerify and FU-Autokit</dd></div>
+        <div><dt>In production</dt><dd>CVerify, on Google Cloud</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────── STACK ────────────────────────── -->
+  <section id="stack" class="section section-bordered" aria-labelledby="stack-title">
+    <div class="section-head reveal">
+      <div>
+        <p class="eyebrow">03 — Stack</p>
+        <h2 id="stack-title">Tools I reach for.</h2>
+      </div>
+      <p class="section-note">Things I have shipped something with. Not a checklist.</p>
+    </div>
+
+    <div class="stack-grid reveal">
+      <div class="stack-cell">
+        <span class="stack-no" aria-hidden="true">01</span>
+        <h3>Languages</h3>
+        <p>C# · Java · Python · TypeScript · JavaScript · SQL · C++</p>
+      </div>
+      <div class="stack-cell">
+        <span class="stack-no" aria-hidden="true">02</span>
+        <h3>Backend</h3>
+        <p>ASP.NET Core · EF Core · FastAPI · Servlet/JSP · REST · SSE · HMAC auth · OAuth</p>
+      </div>
+      <div class="stack-cell">
+        <span class="stack-no" aria-hidden="true">03</span>
+        <h3>Data</h3>
+        <p>PostgreSQL · SQL Server · Redis · relational modelling · migrations</p>
+      </div>
+      <div class="stack-cell">
+        <span class="stack-no" aria-hidden="true">04</span>
+        <h3>Testing</h3>
+        <p>xUnit · JUnit 5 · Mockito · pytest · Vitest · CTest · Testcontainers</p>
+      </div>
+      <div class="stack-cell">
+        <span class="stack-no" aria-hidden="true">05</span>
+        <h3>Infrastructure</h3>
+        <p>Docker · Docker Compose · nginx · GCP Compute Engine · Cloud Monitoring · GitHub Actions</p>
+      </div>
+      <div class="stack-cell">
+        <span class="stack-no" aria-hidden="true">06</span>
+        <h3>AI / LLM</h3>
+        <p>Claude API · agent orchestration · document extraction &amp; OCR · static analysis · token observability</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────────────────── PHILOSOPHY ─────────────────────── -->
+  <section class="section philosophy" aria-labelledby="principles-title">
+    <h2 class="sr-only" id="principles-title">Engineering principles</h2>
+    <ol class="principles">
+      <li class="reveal"><span aria-hidden="true">01</span><p>Correctness before cleverness.</p></li>
+      <li class="reveal"><span aria-hidden="true">02</span><p>Boring foundations first — the interesting part depends on them.</p></li>
+      <li class="reveal"><span aria-hidden="true">03</span><p>If you cannot observe it, you do not know it works.</p></li>
+      <li class="reveal"><span aria-hidden="true">04</span><p>Test the paths that hurt when they break.</p></li>
+      <li class="reveal"><span aria-hidden="true">05</span><p>Write down the decision, not just the code.</p></li>
+    </ol>
+  </section>
+
+  <!-- ────────────────────────── CONTACT ──────────────────────── -->
+  <section id="contact" class="contact" aria-labelledby="contact-title">
+    <div class="contact-inner reveal">
+      <p class="eyebrow">04 — Contact</p>
+      <h2 id="contact-title">Let&rsquo;s build something<br><em>worth shipping.</em></h2>
+
+      <a class="email" href="mailto:long293107@gmail.com">
+        long293107@gmail.com <span aria-hidden="true">↗</span>
+      </a>
+
+      <ul class="contact-links">
+        <li><a href="https://github.com/TNL293107" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/tr%E1%BA%A7n-nh%E1%BA%A5t-long-a78122325/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li><a href="mailto:long293107@gmail.com">Email</a></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <span>© 2026 Trần Nhất Long</span>
+  <span>Đà Nẵng, Việt Nam</span>
+  <span>TNL293107</span>
+</footer>
+
+<script src="script.js" defer></script>
+</body>
+</html>
