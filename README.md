@@ -14,12 +14,22 @@ Static HTML, CSS and JavaScript. No build step, no framework, no dependencies.
 | File | Purpose |
 |------|---------|
 | `index.html` | All markup and metadata (SEO, Open Graph, JSON-LD) |
-| `styles.css` | Design tokens and every style rule, grouped into 15 numbered layers |
-| `script.js` | Reveal-on-scroll, intro counter, cursor glow, card tilt, mobile nav |
+| `styles.css` | Design tokens and every style rule, grouped into numbered layers |
+| `script.js` | Reveal, count-up, cursor, magnets, work preview, stack cloud |
+| `icons.js` | Technology marks (Simple Icons, CC0) as embedded path data |
 | `favicon.svg` | Site icon |
+| `shots/` | Project screenshots — see `shots/README.md` |
 
-Total payload is roughly **24 KB** of local assets plus two Google Fonts families
-(Inter, DM Mono). Georgia is used for italic emphasis and ships with the OS.
+Total payload is roughly **70 KB** of local assets (about 20 KB over the wire
+once GitHub Pages gzips it) plus three Google Fonts families — Instrument Serif
+for display, Inter for body, DM Mono for metadata. `icons.js` is the largest
+piece at 34 KB; it is embedded rather than fetched so the stack cloud costs no
+network request and has no runtime dependency.
+
+The work list is built on native `<details>` with the `name` attribute, so it is
+an exclusive accordion that expands, collapses and takes keyboard focus **with
+JavaScript disabled**. Links inside a collapsed record are correctly kept out of
+the tab order by the browser.
 
 ---
 
@@ -84,9 +94,28 @@ Numbers that *are* on the page and where they come from:
 - Skip link as the first focusable element.
 - All text meets WCAG AA contrast (verified by compositing translucent
   backgrounds, not by eyeballing it).
-- Keyboard-operable mobile menu with `aria-expanded` and Escape to close.
-- `prefers-reduced-motion: reduce` disables the intro counter, grain, marquee,
-  cursor glow, tilt and every reveal transition — content renders immediately.
-- Content never depends on JavaScript to become visible: the reveal styles apply
-  only when the `js` class is present, and a timer forces everything visible
-  after 2.5 s regardless of what the animation hooks do.
+- The nav stays visible at every width — no hamburger, nothing hidden behind a
+  toggle. Below 430px the wordmark shortens to initials so the bar still fits.
+- `prefers-reduced-motion: reduce` disables every reveal and expand transition —
+  content renders immediately.
+- Content never depends on JavaScript to become visible: the reveal class is
+  added *by* JavaScript, and a timer forces everything visible after 2.5 s
+  regardless of what the observer does.
+- Project names are `<h3>` inside `<summary>`, so a screen-reader user can jump
+  between projects from the heading list.
+
+## Adding project screenshots
+
+Each record has an image plate that currently renders as a drawn grid with the
+project index. Drop an image inside and it takes over automatically:
+
+```html
+<figure class="plate" data-plate="01">
+  <img src="shots/pqt.png" alt="PQT terminal showing service status" width="1200" height="900">
+  <figcaption>PQT — terminal</figcaption>
+</figure>
+```
+
+Use a 4:3 image, keep `width`/`height` on the tag so nothing shifts while it
+loads, and write a real `alt`. No CSS change is needed — `.plate:has(img)` hides
+the drawn fallback.

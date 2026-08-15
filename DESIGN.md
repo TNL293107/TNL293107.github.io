@@ -1,40 +1,58 @@
-# Design notes — TNL293107.github.io
+# Design notes — tnl293107.github.io
 
 ## The brief in one line
 
-The page has to say *"this person builds systems"*, not *"this person knows many
-technologies"*. Every layout decision below follows from that.
+The page has to say *"this person builds systems"* — and it has to do it without
+reading like the GitHub profile README it is drawn from.
 
 ---
 
-## Direction
+## What changed, and why
 
-**Premium engineering portfolio × technical editorial × developer terminal.**
+The first build was a dark, mono-heavy, terminal-styled page. It was rejected for
+two specific reasons, both correct:
 
-Near-black ground, warm off-white text, a single acid-lime accent, thin rules
-forming a technical grid, and oversized display type carrying the hierarchy.
-No glassmorphism, no glowing cards, no badge wall, no cyberpunk.
+1. **Too much text.** Every project carried a description, a four-row fact list,
+   three bullets and a tag row — all of it on screen at once.
+2. **Too close to the GitHub profile README.** Same order, same sections, same
+   phrasing. The dark terminal styling reinforced the impression: it looked like
+   a GitHub page, not a portfolio.
 
-### Reference reading
+Both are fixed structurally rather than cosmetically.
 
-Six sites were studied for language, not for copying:
+| | Before | After |
+|---|---|---|
+| Visible text at rest | ~7,000 chars | **~1,600 chars** |
+| Page length | 7.8 screens | 4.6 screens |
+| Ground | near-black `#080808` | warm paper `#fdf8f3` |
+| Display face | Inter, tight sans | Instrument Serif |
+| Work section | four always-open essays | four collapsed records |
+| Stack | six cards of prose | canvas of technology marks |
+
+The text reduction comes from **collapsing detail behind `<details>`**, not from
+deleting substance. Every fact from the previous build is still there — it opens
+on demand, one record at a time.
+
+---
+
+## Reference reading
 
 | Source | What was taken |
 |--------|----------------|
-| animmasterlib.dev | Interaction vocabulary — which categories of motion exist and which are worth having (scroll reveal, mouse, hover, background) |
-| pacomepertant.com | Restraint; lowercase micro-labels; repetition used as rhythm |
-| aikawakenichi.com | The `0%` load counter as a committed, slightly experimental device |
-| kaivian.github.io | A single editorial conceit carried consistently through metadata labels |
-| vshslv.com | Technology stated plainly as a credibility signal |
-| hirotosato0127.github.io | Metadata-per-entry (status, date, role) as structure |
+| avivashishta.com | The density target. It carries ~2,300 characters over seven screens; that measurement, not its look, drove the rewrite. Also the stats band and the canvas-driven skills section. |
+| animmasterlib.dev | Interaction vocabulary — which categories of motion are worth having. |
+| pacomepertant.com | Restraint; lowercase micro-labels; repetition as rhythm. |
+| kaivian.github.io | One editorial conceit carried consistently through metadata labels. |
+| vshslv.com | Technology stated plainly as a credibility signal. |
+| hirotosato0127.github.io | Per-entry metadata (status, role) as structure. |
 
-The Instagram reference (`/p/DTDfiNADKMj/`) is login-gated. It resolves to an
-`@animmaster_studio` UI-animation clip; its actual contents were **not**
-visible and nothing was inferred from it.
+Checked but unusable: the Instagram post is login-gated. It resolves to an
+`@animmaster_studio` UI-animation clip; its contents were never visible and
+nothing was inferred from it.
 
-The conceit chosen here is a **system record** — each project is a record with
-consistent metadata (index, role, status), not a marketing card. That is the
-honest equivalent of kaivian's newspaper framing for a backend engineer.
+**Not copied:** avivashishta's orange-on-cream palette, its DM Serif/DM Sans
+pairing, and its trailing-period naming device. The reference's *approach* is
+borrowed; its identity is not.
 
 ---
 
@@ -42,120 +60,105 @@ honest equivalent of kaivian's newspaper framing for a backend engineer.
 
 | Token | Value | Role |
 |-------|-------|------|
-| `--bg` | `#080808` | Page ground |
-| `--surface` / `--surface-2` | `#0e0e0e` / `#131313` | Cards, hover state |
-| `--line` / `--line-soft` | `#242424` / `#1a1a1a` | The 1px technical grid |
-| `--text` | `#f2efe6` | Warm off-white, never pure white |
-| `--muted` | `#8f8e88` | Body copy — 6.1:1 |
-| `--dim` | `#7c7b76` | Metadata — 4.7:1, the floor for real text |
-| `--accent` | `#d7ff45` | Acid lime |
+| `--paper` | `#fdf8f3` | Warm ground |
+| `--paper-2` | `#f5eee4` | Inset surfaces |
+| `--ink` | `#14110e` | Warm near-black — 17.8:1 |
+| `--muted` | `#6b6258` | Body copy — 5.7:1 |
+| `--rule` / `--rule-2` | `#e2d8ca` / `#d2c5b2` | The 1px grid |
+| `--accent` | `#2440e0` | Cobalt — 6.9:1 |
 
-`--dim` started at `#64635f` and was raised after a contrast audit measured it at
-**3.33:1** — below AA for the 10px footer and scroll label. Colour tokens are
-constrained by measurement, not taste.
+Cobalt rather than the reference's orange: it reads technical instead of
+friendly, and it keeps the page from being mistaken for its source.
 
-The contact section inverts to solid lime with black text, so the final CTA is
-the highest-contrast thing on the page.
+Every text pair was measured with translucent layers composited, and with
+`color(srgb …)` notation handled — an early audit reported two false failures
+because that notation uses 0–1 floats rather than 0–255.
 
 ---
 
 ## Typography
 
-- **Inter** — display and body. Display sizes run `clamp(3.25rem → 8rem)` with
-  `-0.055em` tracking; tight tracking is what keeps large type from reading as a
-  template.
-- **DM Mono** — every piece of metadata: section numbers, project indices,
-  status labels, tags, terminal, footer. Mono is the load-bearing signal that
-  this is an engineer's page.
-- **Georgia italic** — emphasis only (`that hold up.`, `worth shipping.`). Two
-  words per section at most.
+- **Instrument Serif** — display. `clamp(3.5rem → 9rem)`, tracking `-0.02em`.
+- **Inter** — body and UI.
+- **DM Mono** — every label, index, state and caption.
 
-Two families total, per the performance budget.
-
----
-
-## Layout
-
-- 1180px shell, fluid gutter `clamp(1.25rem → 2.5rem)`.
-- Hero is a 1.4fr / 0.75fr split: copy against a slightly rotated terminal panel.
-- **Work uses deliberate hierarchy** rather than a uniform grid:
-  - PQT and CVerify are full-width lead records with a two-column body
-    (narrative on the left, an engineering fact list on the right).
-  - DWatch and FU-Autokit share a two-column grid below them.
-  - This is the single most important layout decision on the page — it makes the
-    two strongest projects unmissable and stops all four reading as equal.
-- PQT carries a `data → research → backtest → risk → execution` chain, lifted
-  from its own README. It shows a dependency argument in one line of markup.
-- CVerify carries an explicit contribution split ("82 commits are mine of 413")
-  so team work is never presented as solo work.
-- Stack is six bordered cells, grouped by role. No logos, no percentage bars.
+Mono metadata against a serif display is what keeps an editorial page legibly an
+*engineer's* page.
 
 ---
 
 ## Motion inventory
 
-| Effect | Implementation | Why it stays |
-|--------|----------------|--------------|
-| Intro counter | rAF counter 0→100 over 900 ms, once per session | Sets the terminal tone before content |
-| Hero line reveal | `clip-path`-free overflow mask, two lines translating up | Establishes the headline as the entry point |
-| Reveal on scroll | IntersectionObserver, 0.15 threshold | Paces the page |
-| Terminal cascade | Staggered `transition-delay` per line | Makes the panel read as output |
-| Cursor glow | rAF-throttled `translate3d` | Ambient depth, mouse-only |
-| Card tilt | 1.8° maximum | Any more and it becomes a toy |
-| Marquee | Two duplicated tracks, `translateX(-50%)` | Seamless; a single track would jump |
-| Scroll progress | `scaleX` on a 2px rule | Technical, cheap, useful |
+| Effect | Implementation | Guard |
+|--------|----------------|-------|
+| Word-by-word heading reveal | Words wrapped in JS, masked, staggered 42 ms | reduced-motion |
+| Block reveal | IntersectionObserver + 2.6 s backstop | reduced-motion |
+| Number count-up | rAF, cubic ease-out, with a timeout that forces the true value | reduced-motion |
+| Marquee | Two duplicated tracks, `translateX(-50%)` | reduced-motion |
+| Scroll progress | `scaleX` on a 2px rule | — |
+| Custom cursor | Lerped dot, scales over interactive elements | fine pointer only |
+| Magnetic buttons | Pointer-weighted translate | fine pointer only |
+| Work preview | Plate glides after the pointer over collapsed rows | fine pointer only |
+| Record expansion | WAAPI stagger on the contents | reduced-motion |
+| **Stack cloud** | Canvas: 20 technology marks drifting, pointer-repelled, draggable | reduced-motion |
 
-Everything animates `transform` and `opacity` only.
+### The stack cloud
 
-**Removed during review:** a stronger tilt, and per-character text splitting on
-the headline. Both drew attention to the animation rather than the sentence.
+The showpiece, and the direct answer to "more effects". Inspection of
+avivashishta.com found **no animation library at all** — its liveliness comes
+from three canvases. This is the same idea, built in ~150 lines of vanilla:
 
----
+- Circular bodies, velocity damping, pointer repulsion, pairwise separation.
+- Marks are Simple Icons paths (CC0) drawn via `Path2D`, embedded in `icons.js`
+  so there is **no network request and no runtime dependency**.
+- Ink monochrome at rest; a mark fades to its brand colour as the pointer nears
+  it or while it is dragged. Full brand colour on all twenty at once would be a
+  badge wall — exactly what this page is trying not to be.
+- The simulation only runs while the section is on screen.
+- `touch-action: pan-y`, and dragging is mouse-only, so it never eats a scroll.
+- **One frame is drawn synchronously on build.** rAF is throttled in background
+  tabs, so the loop alone would leave a blank canvas until the tab got focus.
 
-## Responsive
-
-| Breakpoint | Change |
-|------------|--------|
-| ≤1024px | Hero stacks, terminal un-rotates, project bodies go single-column, stack → 2 cols |
-| ≤860px | Header collapses to a real toggle menu (not a hidden nav), project grid → 1 col, fact lists stack their labels |
-| ≤560px | Stack → 1 col, buttons go full-width, terminal lines wrap instead of ellipsing |
-
-Verified with no horizontal overflow and no off-canvas elements at 1440, 1280,
-1024, 768 and 419px.
+Its label text lives in a visually-hidden `<dl>` that screen readers, search
+engines and no-JS visitors get in full; hovering or tapping a mark prints its
+name below the canvas.
 
 ---
 
 ## Accessibility
 
-- One `h1`; heading levels never skip.
-- Skip link is the first focusable element.
-- `:focus-visible` gives a 2px lime ring at 3px offset — confirmed to match on a
-  real Tab press.
-- The terminal is decorative markup wrapped in a single `role="img"` with a full
-  `aria-label`, so screen readers get one clean sentence instead of prompt glyphs.
-- All text passes WCAG AA, measured with translucent layers composited.
-- Reduced motion disables the intro, grain, marquee, glow, tilt and all reveals.
+- One `h1`; `h2` per section; each project is an `h3` **inside its `<summary>`**,
+  so a screen-reader user can jump between projects from the heading list.
+- The work list is native `<details name="work">` — an exclusive accordion that
+  expands, collapses and takes keyboard focus **with JavaScript disabled**.
+  Links inside a collapsed record are correctly kept out of the tab order.
+- All text passes WCAG AA.
+- Nav is visible at every width; no hamburger. Below 430px the wordmark drops to
+  initials so the bar still fits on one line.
+- Reduced motion removes the cursor, the preview, the marquee and the entire
+  canvas — not just their durations.
+- Nothing content-bearing is hidden without JavaScript: the `.rise` class that
+  hides an element is added *by* JavaScript, and a 2.6 s timer forces everything
+  visible regardless of what the observer does.
 
 ---
 
 ## Content architecture
 
-Hero → Selected Work (01–04) → About → Stack → Principles → Contact.
+Hero → marquee → numbers → work (01–04) → about → stack → contact.
 
-Work sits immediately after the hero because it is the strongest evidence.
-Stack sits *after* About because the technologies are meant to read as
-consequences of the work, not as the point.
+The numbers band sits directly under the hero because it is the fastest honest
+signal available: 295 tests, 9 portals, 82 of 413 commits, 1 system in
+production. Stack sits after About so the technologies read as a consequence of
+the work rather than as the point of it.
 
 ### Facts removed for lack of a public source
 
-- **GPA (8.6/10)** — CV only, and self-dating ("as of June 2026").
-- **"45+ AI unit tests"** as an unattributed About-section metric — the figure is
-  real (one CVerify commit adds 45 tests) so it now appears in the CVerify record
-  where it is attributable, rather than floating as a headline number.
-- **"10+ university portals"** — the FU-Autokit README says nine. Corrected.
-- **"hundreds of student users"** — suggested by the original brief, supported by
-  no public source. Omitted.
-- **FU-Autokit "2023 — 2024"** — no date range is stated anywhere public; the
-  repo is still being updated. Replaced with the version number.
-- **DWatch "ratings/reviews"** — not a feature in the README. Replaced with the
-  features that are (wishlist, comparison, guest order lookup).
+- **GPA (8.6/10)** — CV only, and self-dating.
+- **"10+ university portals"** — the README says nine.
+- **"hundreds of student users"** — no public source.
+- **DWatch "ratings/reviews"** — not a feature in the README.
+- **FU-Autokit "2023 — 2024"** — no public date range; replaced with the version.
+
+`45 unit tests` survives, but only inside the CVerify record where it is
+attributable to a specific commit, rather than floating as a headline number.
