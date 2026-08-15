@@ -8,7 +8,7 @@ placeholder plate in its project record on the site.
 | `CVerify1.png` | CVerify | **Live** — landing hero |
 | `CVerify2.png` | CVerify | **Live** — sign-in section |
 | `FU-Autokit.png` | FU-Autokit | **Live** — extension popup |
-| `DWatch.png` | DWatch | **Wanted** — storefront, checkout or admin console |
+| `DWatch.png` | DWatch | **Live** — storefront hero |
 | `PQT.jpg` | PQT | **Unused** — see below |
 
 `PQT.jpg` is a "COMING SOON" clipart, not a screenshot. It is left in the folder
@@ -26,6 +26,10 @@ one `<img>` tag.
   export WebP, change the extension in `index.html` too.
 - **Keep each file under ~300 KB.** They are lazy-loaded and only fetched when
   a record is expanded, but the rest of the site is only ~70 KB.
+- **Capture at roughly 1200px wide or more.** A plate renders about 458 CSS px
+  across, which a high-DPI screen draws at ~916 device px. `DWatch.png` is only
+  605px wide, so it is the one shot that will look soft on a retina display —
+  worth re-taking from a wider browser window.
 - **Crop out anything private** — real names, emails, student IDs, tokens,
   browser tabs with unrelated sites. These go on a public page.
 
