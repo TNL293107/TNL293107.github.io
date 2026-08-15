@@ -20,12 +20,12 @@ one `<img>` tag.
 
 ## Specs
 
-- **Aspect ratio 4:3** — the plate is 4:3, and anything else gets cropped by
-  `object-fit: cover`. 1600×1200 is a good size.
+- **Any aspect ratio.** A plate holding an image keeps that image's own
+  proportions, so nothing is cropped. Landscape browser captures work well.
 - **PNG or WebP.** WebP is roughly half the size at the same quality; if you
   export WebP, change the extension in `index.html` too.
-- **Keep each file under ~300 KB.** These load on every visit to an expanded
-  record, and the whole site is currently ~60 KB.
+- **Keep each file under ~300 KB.** They are lazy-loaded and only fetched when
+  a record is expanded, but the rest of the site is only ~70 KB.
 - **Crop out anything private** — real names, emails, student IDs, tokens,
   browser tabs with unrelated sites. These go on a public page.
 
