@@ -207,12 +207,42 @@
       else spinning = false;
     };
 
+    /* The preview shows the record's own screenshot. Those images are
+       lazy and live inside a collapsed <details>, so they are warmed once
+       the pointer reaches the list rather than on page load — otherwise
+       previewing would cost the whole gallery up front. */
+    const records = document.querySelector('.records');
+    let warmed = false;
+    const warm = () => {
+      if (warmed) return;
+      warmed = true;
+      document.querySelectorAll('.rec .plate img').forEach((img) => {
+        const pre = new Image();
+        pre.src = img.getAttribute('src');
+      });
+    };
+    if (records) records.addEventListener('pointerenter', warm, { once: true });
+
     document.querySelectorAll('.rec').forEach((rec) => {
       const summary = rec.querySelector('summary');
+      /* data-peek-src wins where a record holds several shots and the
+         first one is not the one worth previewing. */
+      const shot = rec.querySelector('.plate img');
+      const src = rec.dataset.peekSrc || (shot ? shot.getAttribute('src') : null);
 
       summary.addEventListener('pointerenter', (e) => {
         if (e.pointerType !== 'mouse' || rec.open) return;
-        inner.innerHTML = `<span>${rec.dataset.peek || ''}</span>`;
+        warm();
+        if (src) {
+          const im = document.createElement('img');
+          im.src = src;
+          im.alt = '';
+          inner.replaceChildren(im);
+        } else {
+          const s = document.createElement('span');
+          s.textContent = rec.dataset.peek || '';
+          inner.replaceChildren(s);
+        }
         px = qx = e.clientX; py = qy = e.clientY;
         peek.classList.add('on');
       });

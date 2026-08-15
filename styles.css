@@ -522,13 +522,15 @@ h1 { font-size: var(--fs-display); }
 /* pointer-following project preview */
 .peek {
   position: fixed; top: 0; left: 0; z-index: 45;
-  width: 260px; height: 195px;
+  width: 280px; height: 200px;
   pointer-events: none;
-  opacity: 0; transform: translate3d(-50%, -50%, 0) scale(.9);
-  transition: opacity .35s var(--ease), transform .45s var(--ease);
+  opacity: 0;
+  visibility: hidden;   /* never let the panel paint while it is idle */
+  transform: translate3d(-50%, -50%, 0) scale(.9);
+  transition: opacity .35s var(--ease), transform .45s var(--ease), visibility .35s;
   will-change: transform;
 }
-.peek.on { opacity: 1; }
+.peek.on { opacity: 1; visibility: visible; }
 .peek-inner {
   position: relative;   /* the ::before grid is positioned against this */
   width: 100%; height: 100%;
@@ -550,6 +552,14 @@ h1 { font-size: var(--fs-display); }
   opacity: .5;
 }
 .peek-inner span { position: relative; z-index: 1; }
+
+/* With a real screenshot the drawn grid is irrelevant. */
+.peek-inner:has(img)::before { display: none; }
+.peek-inner img {
+  position: relative; z-index: 1;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: top center;
+}
 
 /* marquee */
 .marquee {
