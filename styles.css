@@ -51,7 +51,7 @@ body {
 
 h1, h2, h3 {
   margin: 0;
-  font: 400 1rem/0.94 var(--serif);
+  font: 500 1rem/0.94 var(--serif);
   letter-spacing: -.02em;
 }
 p, dd, dl, ul, figure { margin: 0; }
@@ -109,7 +109,7 @@ a { color: inherit; }
 }
 
 .mark {
-  font: 400 1.35rem/1 var(--serif);
+  font: 500 1.35rem/1 var(--serif);
   text-decoration: none;
   margin-right: auto;
   white-space: nowrap;   /* the full name must never wrap in a 74px bar */
@@ -196,7 +196,7 @@ h1 { font-size: var(--fs-display); }
 }
 .numbers b {
   display: block;
-  font: 400 var(--fs-num)/1 var(--serif);
+  font: 500 var(--fs-num)/1 var(--serif);
   letter-spacing: -.03em;
   color: var(--accent);
 }
@@ -239,7 +239,7 @@ h1 { font-size: var(--fs-display); }
   color: var(--muted);
 }
 .rec-name {
-  font: 400 var(--fs-rec)/1 var(--serif);
+  font: 500 var(--fs-rec)/1 var(--serif);
   letter-spacing: -.025em;
 }
 .rec-what { font-size: .9375rem; color: var(--muted); }
@@ -364,7 +364,7 @@ h1 { font-size: var(--fs-display); }
 .about { border-top: 1px solid var(--rule); }
 .about .label { display: block; margin-bottom: 2rem; }
 .statement {
-  font: 400 clamp(1.9rem, 1rem + 3.2vw, 3.75rem)/1.1 var(--serif);
+  font: 500 clamp(1.9rem, 1rem + 3.2vw, 3.75rem)/1.1 var(--serif);
   letter-spacing: -.02em;
   max-width: 22ch;
   margin-bottom: clamp(2.5rem, 5vw, 4rem);
@@ -391,7 +391,7 @@ h1 { font-size: var(--fs-display); }
   padding: 1.15rem 0;
   border-bottom: 1px solid var(--rule);
 }
-.kit dt { font: 400 1.35rem/1 var(--serif); }
+.kit dt { font: 500 1.35rem/1 var(--serif); }
 .kit dd { font: 400 .9375rem/1.6 var(--mono); color: var(--muted); }
 
 .js .kit {
@@ -412,7 +412,7 @@ h1 { font-size: var(--fs-display); }
 .mailto {
   display: inline-flex; align-items: center; gap: .75rem;
   max-width: 100%;
-  font: 400 clamp(1.35rem, .9rem + 2.2vw, 2.75rem)/1.1 var(--serif);
+  font: 500 clamp(1.35rem, .9rem + 2.2vw, 2.75rem)/1.1 var(--serif);
   text-decoration: none;
   border-bottom: 2px solid var(--ink);
   padding-bottom: .4rem;
