@@ -39,8 +39,17 @@ export function LiveBorder({ children, className }: LiveBorderProps) {
     const host = hostRef.current;
     if (!host) return;
 
+    // Latch on first sight and never switch back. Toggling with visibility
+    // would remount the whole card every time it left and re-entered the
+    // viewport — wasteful, and each remount restarts its subtree from scratch.
+    // One mount is the cost; the saving that matters (keeping ElectricBorder
+    // out of the initial bundle and idle until needed) is already banked.
     const observer = new IntersectionObserver(
-      ([entry]) => setIsActive(Boolean(entry?.isIntersecting)),
+      ([entry]) => {
+        if (!entry?.isIntersecting) return;
+        setIsActive(true);
+        observer.disconnect();
+      },
       { rootMargin: "120px" },
     );
     observer.observe(host);

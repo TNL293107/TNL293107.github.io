@@ -155,13 +155,26 @@
    ----------------------------------------------------------------------------
    Two independent guards, because they fail differently:
 
-   1. `.js-reveal` is only applied by JavaScript (via the `reveal-ready` class
-      on <html>). If JS never runs, content is visible by default — no blank
-      page. This mirrors the rule the previous build established.
+   1. `data-reveal-armed` is written only by RevealController. If JS never runs,
+      nothing is hidden and the page reads normally — the rule the previous
+      build established, kept.
    2. prefers-reduced-motion kills transforms outright rather than just
       shortening them.
    ========================================================================== */
-.reveal-ready [data-reveal] {
+/* Hidden only while the controller has actually claimed the element.
+   `data-reveal-armed` is written by JavaScript, which gives two guarantees:
+
+   1. No JS, no hiding — same protection the old `.reveal-ready` class gave.
+   2. An element mounted *after* the controller ran is never armed, so it
+      renders visible instead of being stranded invisible forever.
+
+   (2) is not hypothetical. `LiveBorder` swaps `{children}` for
+   `<ElectricBorder>{children}</ElectricBorder>` once the card nears the
+   viewport, which remounts the card as a fresh DOM node. It lost GSAP's inline
+   opacity but still matched the old global rule, and the controller's batch
+   only held the removed node — so the CVerify card rendered as an empty
+   bordered box. */
+[data-reveal][data-reveal-armed] {
   opacity: 0;
   will-change: transform, opacity;
 }
@@ -169,7 +182,6 @@
 @media (prefers-reduced-motion: reduce) {
   /* Force everything visible and still. GSAP is additionally short-circuited
      in lib/animations/, so this is a backstop, not the only guard. */
-  .reveal-ready [data-reveal],
   [data-reveal] {
     opacity: 1 !important;
     transform: none !important;

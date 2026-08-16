@@ -5,11 +5,14 @@ import { gsap, ScrollTrigger } from "@/lib/animations/gsap";
 import { DURATION, EASE } from "@/lib/animations/gsap";
 import { prefersReducedMotion } from "@/lib/utils";
 
+/** Marks an element as claimed by this controller. See globals.css. */
+const ARMED = "data-reveal-armed";
+
 /**
  * One controller drives every scroll entrance on the page.
  *
  * Why this shape: sections mark elements with `data-reveal` in server-rendered
- * markup, and this single Client Component animates them. That keeps all eleven
+ * markup, and this single Client Component animates them. That keeps all the
  * sections as Server Components — no `"use client"` leaking down the tree just
  * to fade a heading in.
  *
@@ -17,19 +20,26 @@ import { prefersReducedMotion } from "@/lib/utils";
  * frame and staggers it, which is what makes the page feel like one continuous
  * motion rather than each element popping independently.
  *
- * Safety: the CSS that hides `[data-reveal]` is scoped to `.reveal-ready`, and
- * that class is added *here*. If this component never runs — JS disabled, a
- * bundle error, reduced motion — nothing is ever hidden.
+ * Safety: the CSS that hides a reveal target keys off the `data-reveal-armed`
+ * attribute written here, never off `[data-reveal]` alone. So nothing is hidden
+ * when JavaScript does not run, and — importantly — an element that mounts
+ * later is not stranded invisible by a rule this controller no longer tracks.
  */
 export function RevealController() {
   useEffect(() => {
     if (prefersReducedMotion()) return;
 
-    const root = document.documentElement;
     const elements = gsap.utils.toArray<HTMLElement>("[data-reveal]");
     if (elements.length === 0) return;
 
-    root.classList.add("reveal-ready");
+    const disarm = (el: HTMLElement) => {
+      el.removeAttribute(ARMED);
+      // Drop the compositor hint once the element has landed; leaving
+      // will-change on hundreds of nodes costs memory for nothing.
+      el.style.willChange = "auto";
+    };
+
+    elements.forEach((el) => el.setAttribute(ARMED, ""));
     gsap.set(elements, { opacity: 0, y: 26 });
 
     const batch = ScrollTrigger.batch(elements, {
@@ -45,11 +55,7 @@ export function RevealController() {
           force3D: true,
           overwrite: true,
           onComplete() {
-            // Drop the compositor hint once the element has landed; leaving
-            // will-change on hundreds of nodes costs memory for nothing.
-            (this.targets() as HTMLElement[]).forEach((el) => {
-              el.style.willChange = "auto";
-            });
+            (this.targets() as HTMLElement[]).forEach(disarm);
           },
         }),
     });
@@ -61,10 +67,15 @@ export function RevealController() {
      * the same reason.
      */
     const failsafe = window.setTimeout(() => {
-      gsap.to(
-        elements.filter((el) => Number(getComputedStyle(el).opacity) < 1),
-        { opacity: 1, y: 0, duration: 0.3, overwrite: true },
-      );
+      const stuck = elements.filter((el) => Number(getComputedStyle(el).opacity) < 1);
+      if (stuck.length === 0) return;
+      gsap.to(stuck, {
+        opacity: 1,
+        y: 0,
+        duration: 0.3,
+        overwrite: true,
+        onComplete: () => stuck.forEach(disarm),
+      });
     }, 3000);
 
     // Fonts change metrics, which changes where every trigger point sits.
@@ -74,7 +85,9 @@ export function RevealController() {
     return () => {
       window.clearTimeout(failsafe);
       batch.forEach((trigger) => trigger.kill());
-      root.classList.remove("reveal-ready");
+      // Never leave an element armed on teardown; the CSS would hide it with
+      // no controller left to reveal it.
+      elements.forEach(disarm);
     };
   }, []);
 
