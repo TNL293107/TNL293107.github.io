@@ -82,9 +82,10 @@ npm run build      # static export to out/
 `out/`. `.github/workflows/deploy.yml` runs lint, typecheck and build on every
 push to `main`, then publishes `out/` to GitHub Pages.
 
-**One-time setup:** in **Settings → Pages**, set **Source** to **GitHub
-Actions**. The old "deploy from a branch" mode serves the repository root and
-would ignore the build.
+Pages **Source** is set to **GitHub Actions** (`build_type: workflow`). Leave it
+there: the older "deploy from a branch" mode serves the repository root, which
+no longer holds an `index.html`, and it runs a second competing deploy on every
+push.
 
 The workflow writes `out/.nojekyll` because Pages otherwise runs the output
 through Jekyll, which strips underscore-prefixed paths — including Next's
@@ -142,10 +143,10 @@ Numbers on the page and where they come from:
 
 ## Known gaps
 
-- **No resume PDF.** `resumeUrl` in `data/site.ts` is `null`; every resume
-  affordance falls back to "request by email". Drop a file in `public/resume/`
-  and set that constant to switch them all to a real download.
 - **No PQT screenshot.** The project is still being built, so its card shows a
   status mark rather than a fabricated capture.
+- **The site does not yet reflect the latest CV.** The published PDF lists a
+  project (DotCoder) and a wider CVerify scope than the page describes, and it
+  omits DWatch, which the page still carries. See the note below.
 - **No credential verification links.** The CV carries no URLs;
   `Certification.href` exists for the day a real one does.
