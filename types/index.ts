@@ -123,8 +123,17 @@ export interface Certification {
   readonly name: string;
   readonly issuer: string;
   readonly date: string;
-  /** Set only if a verification page is ever published. */
+  /** Set only if a real verification page exists. Makes the row a link. */
   readonly href?: string;
+  /**
+   * Scan of the certificate itself, shown as a hover/focus preview. Independent
+   * of `href`: CCNA has an image but no verification page, IELTS has neither.
+   */
+  readonly image?: {
+    readonly src: string;
+    readonly width: number;
+    readonly height: number;
+  };
 }
 
 export interface Education {

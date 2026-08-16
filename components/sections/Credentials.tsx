@@ -1,19 +1,19 @@
 import { education } from "@/data/education";
-import { certifications } from "@/data/certifications";
+import { CertificationList } from "./CertificationList";
 
 /**
  * The one section on the page that GitHub cannot source. A degree, a
- * scholarship and five certificates live in the CV and in issuers' portals,
+ * scholarship and four certificates live in the CV and in issuers' portals,
  * nowhere else — so this is where the CV is the authority rather than the
  * weaker witness.
  *
  * Deliberately quiet. Education gets real weight because the scholarship is a
- * genuine distinction; the certificates get a single dense list because three
- * of the five are peripheral to backend and data work, and giving them cards
- * would push the engineering evidence down the page to say less.
+ * genuine distinction; the certificates get a single dense list because they
+ * are peripheral to backend and data work, and giving them cards would push the
+ * engineering evidence down the page to say less.
  *
- * No "Verify" links: the CV carries no credential URLs and none will be
- * invented. `Certification.href` exists for the day a real one does.
+ * The rows themselves are a Client Component — they carry the scan preview and
+ * the touch fallback. Everything else here stays server-rendered.
  */
 export function Credentials() {
   return (
@@ -56,20 +56,7 @@ export function Credentials() {
           <div>
             <h2 className="mono-label">Certifications</h2>
 
-            <ul className="mt-7 divide-y divide-border border-y border-border">
-              {certifications.map((certification) => (
-                <li
-                  key={certification.id}
-                  data-reveal
-                  className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 py-3.5"
-                >
-                  <span className="text-sm text-text">{certification.name}</span>
-                  <span className="font-mono text-[0.68rem] tracking-[0.06em] text-faint">
-                    {certification.issuer} · {certification.date}
-                  </span>
-                </li>
-              ))}
-            </ul>
+            <CertificationList />
           </div>
         </div>
       </div>
