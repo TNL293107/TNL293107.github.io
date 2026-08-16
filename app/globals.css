@@ -1,0 +1,206 @@
+@import "tailwindcss";
+
+/* ============================================================================
+   DESIGN TOKENS
+   ----------------------------------------------------------------------------
+   Direction: dark technical ground, one signal-green accent used *semantically*
+   (shipped / live / active), amber reserved for in-development. Everything else
+   is neutral. Restrained monospace metadata against a geometric display face is
+   what keeps this an engineer's page rather than a SaaS landing page.
+
+   Every text pair below was measured against --bg, not eyeballed:
+     text  #eef1f4  17.57:1      accent #4ade9b  11.58:1
+     dim   #a2abb5   8.56:1      amber  #f2b93c  11.17:1
+     faint #79838e   5.17:1  <- the faintest value that still clears AA
+   ========================================================================== */
+@theme {
+  --color-bg: #08090b;
+  --color-bg-raised: #0d0f13;
+  --color-surface: rgba(255, 255, 255, 0.028);
+  --color-surface-2: rgba(255, 255, 255, 0.055);
+  --color-border: rgba(255, 255, 255, 0.075);
+  --color-border-strong: rgba(255, 255, 255, 0.15);
+
+  --color-text: #eef1f4;
+  --color-dim: #a2abb5;
+  --color-faint: #79838e;
+
+  --color-accent: #4ade9b;
+  --color-accent-ink: #08090b;
+  --color-amber: #f2b93c;
+
+  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, "SFMono-Regular", monospace;
+
+  /* Fluid type. Display tops out well below the reference's hero so the page
+     reads as a profile, not a splash screen. */
+  --text-hero: clamp(2.6rem, 1.1rem + 6.2vw, 6.4rem);
+  --text-section: clamp(1.9rem, 1.15rem + 2.6vw, 3.4rem);
+  --text-lead: clamp(1.05rem, 0.98rem + 0.4vw, 1.3rem);
+
+  --spacing-section: clamp(5rem, 3.5rem + 6vw, 9rem);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --radius-card: 18px;
+}
+
+/* ============================================================================
+   BASE
+   ========================================================================== */
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    /* Lenis drives scrolling; native smooth-scroll would fight it. The anchor
+       fallback matters when Lenis is disabled for reduced motion. */
+    scroll-behavior: auto;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    /* Nothing should ever scroll sideways (§28). */
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-accent-ink);
+  }
+
+  /* A visible, high-contrast focus ring on every interactive element. Uses
+     :focus-visible so a mouse click does not paint the ring.
+
+     `transition-duration: 0s` is load-bearing, not tidying. Tailwind's
+     `transition-colors` utility includes `outline-color` in its property list,
+     so on the many elements carrying it the ring would fade in over 300ms —
+     measured mid-transition it was still the element's own text colour. A focus
+     indicator has to be there the instant focus lands.
+
+     No `border-radius` here: the outline already follows the element's own
+     corner radius, and forcing one distorts pills and cards. */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    transition-duration: 0s;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.022em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+/* ============================================================================
+   UTILITIES
+   ========================================================================== */
+@layer utilities {
+  /* The structural grid behind the page — the "engineering graph paper" motif.
+     Masked so it fades out rather than ending on a hard edge. */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  .mono-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-faint);
+  }
+
+  /* Cards share one recipe so the whole page reads as a single system. */
+  .surface-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    transition:
+      border-color 0.4s var(--ease-out-expo),
+      background-color 0.4s var(--ease-out-expo),
+      transform 0.4s var(--ease-out-expo);
+  }
+
+  .surface-card:hover {
+    background-color: var(--color-surface-2);
+    border-color: var(--color-border-strong);
+  }
+
+  /* Prevents the 1px hairline seams that show between grid cells on some
+     fractional-DPI displays. */
+  .subpixel-fix {
+    transform: translateZ(0);
+  }
+}
+
+/* ============================================================================
+   MOTION
+   ----------------------------------------------------------------------------
+   Two independent guards, because they fail differently:
+
+   1. `.js-reveal` is only applied by JavaScript (via the `reveal-ready` class
+      on <html>). If JS never runs, content is visible by default — no blank
+      page. This mirrors the rule the previous build established.
+   2. prefers-reduced-motion kills transforms outright rather than just
+      shortening them.
+   ========================================================================== */
+.reveal-ready [data-reveal] {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Force everything visible and still. GSAP is additionally short-circuited
+     in lib/animations/, so this is a backstop, not the only guard. */
+  .reveal-ready [data-reveal],
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  html {
+    scroll-behavior: auto !important;
+  }
+}
+
+/* React Bits' AnimatedContent ships `invisible` as its resting state, which
+   would hide content if GSAP never initialises. It is re-shown here for
+   reduced-motion and no-JS users; the component itself also bails out early. */
+@media (prefers-reduced-motion: reduce) {
+  .rb-animated-content {
+    visibility: visible !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* The stack marquee needs no rule here: React Bits' LogoLoop checks
+   prefers-reduced-motion itself and parks the track at translate3d(0,0,0)
+   instead of starting its rAF loop. An earlier `.logo-loop-track` override was
+   removed — that class does not exist, so the rule was dead. */

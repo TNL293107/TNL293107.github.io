@@ -1,6 +1,29 @@
 # Internal build brief — kept local, not part of the published site.
-# Remove this line if you want it public.
 AGENT_PROMPT.md
+
+# dependencies
+node_modules/
+.pnp
+.pnp.*
+
+# next.js
+.next/
+out/
+next-env.d.ts
+
+# production / tooling
+build/
+*.tsbuildinfo
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env
+.env
+.env*.local
 
 # OS / editor noise
 .DS_Store

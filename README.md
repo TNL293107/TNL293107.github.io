@@ -1,121 +1,151 @@
 # TNL293107.github.io
 
-Personal portfolio for **Trần Nhất Long** — Software Engineering student at FPT
-University Đà Nẵng, working mainly on backend services, data models and infrastructure.
+Personal engineering profile for **Trần Nhất Long** — Software Engineering
+student at FPT University Đà Nẵng, working on backend services, data models, AI
+pipelines and the infrastructure they run on.
 
-Live at **https://TNL293107.github.io/**
+Live at **https://tnl293107.github.io/**
 
 ---
 
 ## Stack
 
-Static HTML, CSS and JavaScript. No build step, no framework, no dependencies.
+| Layer | Choice |
+|-------|--------|
+| Framework | Next.js 16 (App Router, static export) |
+| Language | TypeScript, `strict` + `noUncheckedIndexedAccess` |
+| Styling | Tailwind CSS v4 (CSS-first tokens in `app/globals.css`) |
+| Animation | GSAP 3 + `@gsap/react`, ScrollTrigger, SplitText |
+| Smooth scroll | Lenis (one global instance) |
+| Components | React Bits (vendored source, MIT) |
+| Fonts | Space Grotesk, Inter, JetBrains Mono — self-hosted via `next/font` |
 
-| File | Purpose |
-|------|---------|
-| `index.html` | All markup and metadata (SEO, Open Graph, JSON-LD) |
-| `styles.css` | Design tokens and every style rule, grouped into numbered layers |
-| `script.js` | Reveal, count-up, cursor, magnets, work preview, stack cloud |
-| `icons.js` | Technology marks (Simple Icons, CC0) as embedded path data |
-| `favicon.svg` | Site icon |
-| `shots/` | Project screenshots — see `shots/README.md` |
+No Framer Motion, no Motion One. GSAP is the only animation runtime.
 
-Total payload is roughly **70 KB** of local assets (about 20 KB over the wire
-once GitHub Pages gzips it) plus three Google Fonts families — Instrument Serif
-for display, Inter for body, DM Mono for metadata. `icons.js` is the largest
-piece at 34 KB; it is embedded rather than fetched so the stack cloud costs no
-network request and has no runtime dependency.
+## Layout
 
-The work list is built on native `<details>` with the `name` attribute, so it is
-an exclusive accordion that expands, collapses and takes keyboard focus **with
-JavaScript disabled**. Links inside a collapsed record are correctly kept out of
-the tab order by the browser.
-
----
-
-## Running it locally
-
-Any static file server works. With Python:
-
-```bash
-python -m http.server 4173
+```
+app/          layout, page, globals.css, robots.ts, sitemap.ts
+components/
+  layout/     Navbar, Footer, SmoothScroll, RevealController
+  sections/   one file per page section
+  projects/   project card variants
+  skills/     filterable grid, stack marquee
+  ui/         shared primitives (cards, pills, marks, buttons)
+  reactbits/  vendored React Bits source — see note below
+data/         all page content, typed against types/
+lib/          gsap setup, hooks, utilities
+public/       screenshots, favicon
+legacy/       the previous hand-written static site, kept for reference
 ```
 
-Then open `http://localhost:4173`. A `.claude/launch.json` is included so the
-same server can be started from the editor.
+Content is fully data-driven: adding a project or a skill means editing `data/`,
+never a component.
 
----
+### Server vs client components
 
-## Deploying to GitHub Pages
+Every section is a Server Component. Interactivity is pushed into the few leaves
+that need it — the skill filter, magnetic buttons, the count-up, the hero
+headline split, and the two controllers in `components/layout/`. Scroll
+entrances work by marking elements with `data-reveal` in server-rendered markup;
+a single client controller animates them.
 
-1. Create a repository named exactly `TNL293107.github.io`.
-2. Push the contents of this folder to the `main` branch.
-3. **Settings → Pages → Deploy from a branch → `main` → `/ (root)`**.
-4. The site publishes at `https://TNL293107.github.io/`.
+### React Bits
 
-No workflow file is needed — GitHub Pages serves the root directly.
+React Bits distributes source rather than a package, so the components live in
+`components/reactbits/` under their MIT licence. They are **modified** — each
+change is marked with an `ADAPTED:` comment. The modifications cover
+reduced-motion bailouts, removing hardcoded colours that fought the design
+tokens, and satisfying `noUncheckedIndexedAccess`.
+
+Only components with no `motion` dependency were used. `ElectricBorder` and
+`LogoLoop` are lazy-loaded via `next/dynamic` because both sit below the fold.
+
+## Running it
+
+```bash
+npm install
+npm run dev
+```
+
+Then open `http://localhost:3000`.
+
+```bash
+npm run lint       # eslint (flat config, eslint-config-next 16 native)
+npm run typecheck  # tsc --noEmit
+npm run build      # static export to out/
+```
+
+## Deploying
+
+`next.config.ts` sets `output: "export"`, so the build emits a fully static
+`out/`. `.github/workflows/deploy.yml` runs lint, typecheck and build on every
+push to `main`, then publishes `out/` to GitHub Pages.
+
+**One-time setup:** in **Settings → Pages**, set **Source** to **GitHub
+Actions**. The old "deploy from a branch" mode serves the repository root and
+would ignore the build.
+
+The workflow writes `out/.nojekyll` because Pages otherwise runs the output
+through Jekyll, which strips underscore-prefixed paths — including Next's
+`_next/` bundle directory.
 
 ---
 
 ## Content policy
 
-Everything factual on this page is traceable to a public source, and the sources
-were checked directly rather than recalled:
+Every factual claim traces to a public source, and the sources were checked
+directly rather than recalled:
 
-- **GitHub profile and repository READMEs** — the primary source for what each
-  project is, which technologies it uses, and its current status.
-- **The upstream CVerify repository** (`fptu-se-su26/swp391-su26-ai-audit-project-swp391_se20a02_group-05`)
-  — used to establish the actual scope of contribution, via the contributors API
-  and commit history, rather than the summary role listed in the team table.
-- **The CV** is treated as an older snapshot. Where it disagreed with GitHub,
-  GitHub won.
+- **GitHub** — profile README, repository READMEs, commit history, and the
+  actual source trees. This is the authority for what each project is and does.
+- **The upstream CVerify repository** — used via the contributors API and commit
+  history to establish real contribution scope, rather than the README team
+  table, which understates it.
+- **The CV** — treated as an older snapshot and the authority *only* for
+  credentials, which no repository can evidence. Where the CV disagreed with
+  GitHub about the code, GitHub won.
 
-Deliberately **not** on the page: employers, internships, awards, user counts,
-revenue, uptime figures, or any metric no public source supports. Two numbers
-that appeared in earlier drafts (a GPA figure and a project date range) were
-removed because neither could be verified from a public source — see
-`DESIGN.md` for the list.
+Deliberately **not** on the page: employers, internships, user counts, revenue,
+uptime, benchmarks, or trading results. No public source supports any of them.
 
-Numbers that *are* on the page and where they come from:
+Claims dropped during the rewrite because the source tree contradicted them:
+DWatch vouchers, ratings/reviews, an analytics dashboard and brute-force rate
+limiting; CVerify's Tesseract dependency; and pgvector.
+
+Numbers on the page and where they come from:
 
 | Claim | Source |
 |-------|--------|
-| PQT: 163 tests, phase 1 of 20 | PQT README |
+| 297 tests total | 163 PQT + 45 CVerify + 56 DWatch + 33 FU-Autokit |
 | CVerify: 82 of 413 commits | GitHub contributors API + commit count on `main` |
-| CVerify: 45 unit tests | commit `restore missing imports + add 45 unit tests…` |
-| DWatch: 54 tests, CSRF across 17 forms | DWatch README + profile README |
-| FU-Autokit: 9 portals, 33 tests, v3.4 | FU-Autokit README + profile README |
-
----
+| DWatch: 56 tests, CSRF across 17 forms | `@Test`/`@ParameterizedTest` count across five test classes |
+| FU-Autokit: 9 portals, v3.4 | FU-Autokit README |
 
 ## Accessibility
 
-- Semantic landmarks, one `h1`, no skipped heading levels.
+- Semantic landmarks, one `h1`, no skipped heading levels (verified in-browser).
 - Skip link as the first focusable element.
-- All text meets WCAG AA contrast (verified by compositing translucent
-  backgrounds, not by eyeballing it).
-- The nav stays visible at every width — no hamburger, nothing hidden behind a
-  toggle. Below 430px the wordmark shortens to initials so the bar still fits.
-- `prefers-reduced-motion: reduce` disables every reveal and expand transition —
-  content renders immediately.
-- Content never depends on JavaScript to become visible: the reveal class is
-  added *by* JavaScript, and a timer forces everything visible after 2.5 s
-  regardless of what the observer does.
-- Project names are `<h3>` inside `<summary>`, so a screen-reader user can jump
-  between projects from the heading list.
+- All text meets WCAG AA, measured rather than eyeballed. The faintest colour
+  shipped is `#79838e` at 5.17:1.
+- Focus rings are immediate: `:focus-visible` sets `transition-duration: 0s`,
+  because Tailwind's `transition-colors` includes `outline-color` and would
+  otherwise fade the ring in over 300ms.
+- The mobile menu traps focus, closes on Escape, and returns focus to its
+  toggle.
+- `prefers-reduced-motion: reduce` disables Lenis, the reveal system, the
+  headline split, the typing line, the marquee and the animated border — not
+  just their durations.
+- Content never depends on JavaScript to become visible: the CSS that hides
+  reveal targets is scoped to a class that JavaScript adds, and a 3s timer
+  forces everything visible regardless of what the observer does.
 
-## Adding project screenshots
+## Known gaps
 
-Each record has an image plate that currently renders as a drawn grid with the
-project index. Drop an image inside and it takes over automatically:
-
-```html
-<figure class="plate" data-plate="01">
-  <img src="shots/pqt.png" alt="PQT terminal showing service status" width="1200" height="900">
-  <figcaption>PQT — terminal</figcaption>
-</figure>
-```
-
-Use a 4:3 image, keep `width`/`height` on the tag so nothing shifts while it
-loads, and write a real `alt`. No CSS change is needed — `.plate:has(img)` hides
-the drawn fallback.
+- **No resume PDF.** `resumeUrl` in `data/site.ts` is `null`; every resume
+  affordance falls back to "request by email". Drop a file in `public/resume/`
+  and set that constant to switch them all to a real download.
+- **No PQT screenshot.** The project is still being built, so its card shows a
+  status mark rather than a fabricated capture.
+- **No credential verification links.** The CV carries no URLs;
+  `Certification.href` exists for the day a real one does.
