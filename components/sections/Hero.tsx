@@ -102,6 +102,8 @@ export function Hero() {
 
             <a
               href={resumeUrl ?? `mailto:${site.email}?subject=Resume%20request`}
+              target={resumeUrl ? "_blank" : undefined}
+              rel={resumeUrl ? "noopener noreferrer" : undefined}
               className="inline-flex items-center gap-2 rounded-full px-5 py-3.5 font-mono text-xs tracking-[0.1em] text-faint uppercase underline-offset-4 transition-colors hover:text-text hover:underline"
             >
               {resumeUrl ? "Resume" : "Request resume"}

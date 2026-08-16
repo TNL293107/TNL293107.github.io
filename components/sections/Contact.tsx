@@ -95,7 +95,8 @@ export function Contact() {
                   On paper
                 </h3>
                 <p className="mt-3 flex-1 text-sm leading-relaxed text-dim">
-                  The same story as this page, one page long and printable.
+                  The same story as this page, condensed to two printable pages —
+                  with dates, and a couple of projects that are not shown here.
                 </p>
                 <div className="mt-7 flex flex-wrap gap-3">
                   <a

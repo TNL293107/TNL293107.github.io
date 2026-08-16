@@ -29,12 +29,15 @@ export const site = {
 } as const;
 
 /**
- * No resume PDF exists in the repository yet, and one will not be invented.
- * Drop a file at `public/resume/tran-nhat-long.pdf` and set this to that path —
- * every resume affordance on the page switches from "request by email" to a
- * real download automatically. Nothing else needs to change.
+ * Setting this switches every resume affordance on the page — navbar, hero and
+ * the contact panel — from "request by email" to a real open/download pair.
+ * Set it back to `null` and they all revert.
+ *
+ * Note the file is public and indexable once deployed: it carries a phone
+ * number, which the page itself deliberately does not.
  */
-export const resumeUrl: string | null = null;
+export const resumeUrl: string | null =
+  "/resume/Tran-Nhat-Long-Backend-Data-Engineer.pdf";
 
 export const navigation: readonly NavigationItem[] = [
   { label: "Home", href: "#top" },

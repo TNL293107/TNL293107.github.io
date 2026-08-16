@@ -1,6 +1,10 @@
 # Internal build brief — kept local, not part of the published site.
 AGENT_PROMPT.md
 
+# Editable CV sources. This repository is public, so only the built PDF in
+# public/resume/ is published; the .docx working copy stays local.
+docs/
+
 # dependencies
 node_modules/
 .pnp

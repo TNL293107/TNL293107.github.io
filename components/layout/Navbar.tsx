@@ -105,8 +105,9 @@ export function Navbar() {
     };
   }, [isMenuOpen, closeMenu]);
 
+  // With a PDF present this opens it; without one it falls back to an email
+  // request, so the button is never a dead end.
   const resumeHref = resumeUrl ?? `mailto:${site.email}?subject=Resume%20request`;
-  const resumeLabel = resumeUrl ? "Resume" : "Resume";
 
   return (
     <>
@@ -176,9 +177,11 @@ export function Navbar() {
             </a>
             <a
               href={resumeHref}
+              target={resumeUrl ? "_blank" : undefined}
+              rel={resumeUrl ? "noopener noreferrer" : undefined}
               className="rounded-full bg-accent px-4 py-2 font-mono text-[0.68rem] font-medium tracking-[0.1em] text-accent-ink uppercase transition-opacity duration-300 hover:opacity-85"
             >
-              {resumeLabel}
+              Resume
             </a>
 
             <button
